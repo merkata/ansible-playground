@@ -8,4 +8,4 @@
     - name: install libselinux-python for ansible play (create group)
       yum: name=libselinux-python state=present
       environment:
-        http_proxy: "{{ proxy }}"
+        http_proxy: '{{ proxy }}'
