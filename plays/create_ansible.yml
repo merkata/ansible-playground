@@ -1,0 +1,21 @@
+---
+- name: ansible setup
+  hosts: linux
+  remote_user: root
+  tasks:
+    - name: create ansible group
+      group: name=ansible state=present
+
+    - name: create ansible user
+      user: name=ansible group=ansible append=yes
+
+    - name: allow sudo for ansible user/group
+      copy: src=../files/sudoers.d/ansible dest=/etc/sudoers.d/ mode=0440 owner=root
+
+    - name: add public key to ansible authorized_keys
+      authorized_key:
+        user: ansible
+        state: present
+        key: '{{ item }}'
+        with_file:
+          - ../files/public_keys/mddimitrov

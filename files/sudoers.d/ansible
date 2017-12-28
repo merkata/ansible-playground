@@ -1,0 +1,2 @@
+#members of ansible group can sudo
+%ansible ALL=(ALL) NOPASSWD: ALL
