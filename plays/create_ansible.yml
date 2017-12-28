@@ -17,5 +17,5 @@
         user: ansible
         state: present
         key: '{{ item }}'
-        with_file:
-          - ../files/public_keys/mddimitrov
+      with_file:
+        - ../files/public_keys/mddimitrov
