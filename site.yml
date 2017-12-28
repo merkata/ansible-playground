@@ -1,0 +1,6 @@
+---
+- name: site-wide ansible consigurations
+  hosts: all
+  tasks:
+    - name: change motd to reflect we are running an ansible shop
+      copy: content='Managed by Ansible' dest=/etc/motd
