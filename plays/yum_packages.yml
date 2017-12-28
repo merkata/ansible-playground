@@ -1,0 +1,11 @@
+---
+- name: install yum packages as prerequisites
+  hosts: linux
+  remote_user: root
+  vars:
+    proxy: 172.18.32.94:3128
+  tasks:
+    - name: install libselinux-python for ansible play (create group)
+      yum: name=libselinux-python state=present
+      environment:
+        http_proxy: "{{ proxy }}"
