@@ -19,3 +19,4 @@
         key: '{{ item }}'
       with_file:
         - ../files/public_keys/mddimitrov
+...
