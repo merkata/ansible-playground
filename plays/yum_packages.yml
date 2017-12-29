@@ -1,4 +1,8 @@
 ---
+# install various packages via yum
+# note we are using a handler for iptables
+# since that module is non-idempotent
+# on CentOS/RHEL 7 with firewalld it is not necessary
 - name: install yum packages as prerequisites
   hosts: linux
   remote_user: root
@@ -15,4 +19,22 @@
       environment:
         http_proxy: '{{ proxy }}'
       when: ansible_host == 'linux-serv01'
+
+    - name: install httpd service
+      yum: name=httpd state=present
+      environment:
+        http_proxy: '{{ proxy }}'
+      notify:
+        add httpd iptables rule
+
+  handlers:
+    - name: add httpd iptables rule
+      iptables:
+        action: insert
+        chain: INPUT
+        destination: 0.0.0.0/0
+        destination_port: http
+        protocol: tcp
+        ctstate: NEW
+        comment: allow http traffic
 ...
