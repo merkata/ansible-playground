@@ -1,0 +1,34 @@
+---
+# iptables is not idempotent
+# skip running it with
+# --skip-tags non-idempotent <playbook>
+- name: vsftpd service on linux-serv01
+  hosts: linux-serv01
+  tags:
+    - service
+  tasks:
+    - name: ensure vsftpd is running
+      service: name=vsftpd state=started
+
+    - name: copy a note to README
+      copy:
+        content: Welcome to my VSFTPd server!\n
+        dest: /var/ftp/pub/README
+        force: no
+        mode: 0444
+
+    - name: add a rule to iptables
+      tags:
+        - non-idempotent
+      iptables:
+        chain: INPUT
+        action: insert
+        comment: allow connections to vsftpd
+        ctstate: NEW
+        destination: 0.0.0.0/0
+        destination_port: ftp
+        # need to set protocol for this to work!
+        # otherwise iptables throws an error
+        protocol: tcp
+        jump: ACCEPT
+...
