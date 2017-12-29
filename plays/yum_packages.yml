@@ -9,3 +9,9 @@
       yum: name=libselinux-python state=present
       environment:
         http_proxy: '{{ proxy }}'
+
+    - name: install vsftpd on first host of group
+      yum: name=vsftpd state=present
+      environment:
+        http_proxy: '{{ proxy }}'
+      when: ansible_host == 'linux-serv01'
