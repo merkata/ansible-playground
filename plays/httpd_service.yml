@@ -1,0 +1,16 @@
+---
+- name: httpd service on all servers
+  hosts: all
+  tags:
+    - service
+  tasks:
+    - name: ensure httpd is running
+      service: name=httpd state=started
+
+    - name: copy a note to README
+      copy:
+        content: Welcome to my web server
+        dest: /var/www/html/index.html
+        force: no
+        mode: 0444
+...
