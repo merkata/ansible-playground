@@ -1,4 +1,4 @@
-[section]
+[package]
 smb_package=smb
 ftp_package=vsftpd
 db_package=mariadb
