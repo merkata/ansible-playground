@@ -37,4 +37,5 @@
         protocol: tcp
         ctstate: NEW
         comment: allow http traffic
+        jump: ACCEPT
 ...
