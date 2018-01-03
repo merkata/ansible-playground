@@ -1,0 +1,23 @@
+---
+- name: install lamp services
+  hosts: lamp
+  tasks:
+    - name: include vars file
+      include_vars: ../vars/allvars.yml
+
+    - name: install {{ ansible_local.custom.package.db_package }} package
+      yum: name="{{ ansible_local.custom.package.db_package }}" state=present
+      environment:
+         http_proxy: "{{ proxy }}"
+
+    - name: enable and start {{ ansible_local.custom.service.db_service }} service
+      service: name="{{ ansible_local.custom.service.db_service }}" enabled=yes state=started
+
+    - name: install {{ ansible_local.custom.package.web_package }} package
+      yum: name="{{ ansible_local.custom.package.web_package }}" state=present
+      environment:
+         http_proxy: "{{ proxy }}"
+
+    - name: enable and start {{ ansible_local.custom.service.web_service }} service
+      service: name="{{ ansible_local.custom.service.web_service }}" enabled=yes state=started
+...

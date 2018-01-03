@@ -1,0 +1,6 @@
+---
+- name: setup file and lamp servers
+  hosts: file, lamp
+- import_playbook: file-services.yml
+- import_playbook: lamp-services.yml
+...

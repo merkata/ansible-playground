@@ -1,0 +1,23 @@
+---
+- name: install file services
+  hosts: file
+  tasks:
+    - name: include vars file
+      include_vars: ../vars/allvars.yml
+
+    - name: install {{ ansible_local.custom.package.smb_package }} package
+      yum: name="{{ ansible_local.custom.package.smb_package }}" state=present
+      environment:
+         http_proxy: "{{ proxy }}"
+
+    - name: enable and start {{ ansible_local.custom.service.smb_service }} service
+      service: name="{{ ansible_local.custom.service.smb_service }}" enabled=yes state=started
+
+    - name: install {{ ansible_local.custom.package.ftp_package }} package
+      yum: name="{{ ansible_local.custom.package.ftp_package }}" state=present
+      environment:
+         http_proxy: "{{ proxy }}"
+
+    - name: enable and start {{ ansible_local.custom.service.ftp_service }} service
+      service: name="{{ ansible_local.custom.service.ftp_service }}" enabled=yes state=started
+...

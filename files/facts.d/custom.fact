@@ -1,11 +1,11 @@
 [package]
-smb_package=smb
+smb_package=samba
 ftp_package=vsftpd
-db_package=mariadb
-web_package=http
+db_package=mysql-server
+web_package=httpd
 
 [service]
-smb_service=smbd
+smb_service=smb
 ftp_service=vsftpd
 db_service=mysqld
 web_service=httpd
